@@ -62,7 +62,16 @@ export default function parse(input: string) {
     },
     [TYPES.ATTRIBUTE_VALUE](attrValue: string) {
       const value = attrValue.replace(/"/g, "'");
-      (node as ElementNode).attributes[attributeName] = value + '111';
+      (node as ElementNode).attributes[attributeName] =
+        value.startsWith('{{') && value.endsWith('}}')
+          ? {
+              type: 'expr',
+              textContent: value.slice(2, value.length - 2),
+            }
+          : {
+              type: 'value',
+              textContent: value,
+            };
       attributeName = '';
     },
     [TYPES.COMMENT](comment: string) {

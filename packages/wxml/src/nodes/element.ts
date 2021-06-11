@@ -7,10 +7,15 @@ import TextNode from './text';
 import CommentNode from './comment';
 import NODE_TYPES from '../types/node-types';
 
+export interface Attribute {
+  type: 'value' | 'expr';
+  textContent: string;
+}
+
 export default class ElementNode extends BaseNode {
   public tagName: string;
   public attributes: {
-    [attrName: string]: string | true;
+    [attrName: string]: true | Attribute;
   };
   public childNodes: Array<ElementNode | TextNode | CommentNode>;
   public selfClosing: boolean;

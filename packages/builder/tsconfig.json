@@ -6,7 +6,6 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "outDir": "dist",
-    "baseUrl": "./src",
     "allowJs": false,
     "skipLibCheck": true,
     "declaration": true,

@@ -10,6 +10,6 @@ export function injectReadonly(target: object, key: string, value: any): void {
   });
 }
 
-export function injectGlobalReadonly(key: string, getter: () => any) {
-  return injectReadonly(global, key, getter);
+export function injectGlobalReadonly(key: string, value: any) {
+  return injectReadonly(global, key, value);
 }

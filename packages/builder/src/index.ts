@@ -1,15 +1,17 @@
-import './modulePath';
 import * as path from 'path';
 import * as fs from 'fs-extra';
-import { AppConfig, BuildConfig, ProjectConfig } from 'types';
-import { formatCode, getAppConfig, getProjectConfig } from 'utils';
+import { AppConfig, BuildConfig, ProjectConfig } from './types';
+import { formatCode, getAppConfig, getProjectConfig } from './utils';
 import { transformWxml } from './wxml';
 
 export class Builder {
   constructor(config: BuildConfig) {
     this.config = config;
     this.projectConfig = getProjectConfig(config.entry);
-    this.mpRoot = path.resolve(config.entry, this.projectConfig.miniprogramRoot);
+    this.mpRoot = path.resolve(
+      config.entry,
+      this.projectConfig.miniprogramRoot,
+    );
     this.appConfig = getAppConfig(this.mpRoot);
     this.init();
   }
@@ -35,7 +37,9 @@ export class Builder {
     const appPath = path.resolve(this.mpRoot, './app.js');
     const target = path.resolve(this.config.out, './app.js');
     const content = await fs.readFile(appPath, 'utf8');
-    const wrappedContent = `export default function({ App }) {\n${formatCode(content)}\n}`;
+    const wrappedContent = `export default function({ App }) {\n${formatCode(
+      content,
+    )}\n}`;
     return fs.writeFileSync(target, wrappedContent, { encoding: 'utf8' });
   };
 

@@ -1,6 +1,6 @@
 import BaseNode from '../nodes/base';
 import CommentNode from '../nodes/comment';
-import ElementNode from '../nodes/element';
+import ElementNode, { Attribute } from '../nodes/element';
 import TextNode from '../nodes/text';
 import NODE_TYPES from '../types/node-types';
 
@@ -18,10 +18,11 @@ const serializeByType = {
         if (node.attributes[name] === true) {
           return name;
         }
-        return `${name}="${(node.attributes[name] as string).replace(
-          /\"/g,
-          "'",
-        )}"`;
+        const { type, textContent } = node.attributes[name] as Attribute;
+        return `${name}="${(type === 'expr'
+          ? `{{${textContent}}}`
+          : textContent
+        ).replace(/\"/g, "'")}"`;
       })
       .join(' ');
     if (attrsString) {

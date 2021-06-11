@@ -18,12 +18,14 @@ export function isCodeComment(line: string): boolean {
 }
 
 export function formatCode(code: string): string {
+  const content = code.replace(`"use strict";`, '').replace(/\/\/#.+/g, '');
   try {
-    return prettier.format(code.replace(`"use strict";\n`, ''), {
+    return prettier.format(content, {
       semi: false,
       parser: 'babel',
     });
   } catch (e) {
-    return code;
+    console.warn('Format code error: ', e);
+    return content;
   }
 }

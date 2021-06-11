@@ -37,30 +37,44 @@ export class Builder {
   private readonly wrapAppFile = () => {
     const appPath = path.resolve(this.mpRoot, './app.js');
     const target = path.resolve(this.config.out, './app.js');
-    const content = fs.readFileSync(appPath, 'utf8');
+    const content = fs.readFileSync(appPath, { encoding: 'utf-8' });
     const wrappedContent = formatCode(
-      `export default function() { ${content} }`,
+      `import "./app.wxss"; export default function(context) { with (context) { \n${content}\n } }`,
     );
-    return fs.writeFileSync(target, wrappedContent, { encoding: 'utf8' });
+    return fs.writeFileSync(target, wrappedContent, { encoding: 'utf-8' });
   };
 
   private readonly handlePages = () => {
     this.appConfig.pages.forEach(async (page) => {
       const pagePath = path.resolve(this.mpRoot, page);
-      const wxmlPath = pagePath + '.wxml';
-
       const target = path.resolve(this.config.out, page);
-      const wxmlTarget = target + '.wxml.js';
 
-      const jsx = wxml2jsx(wxmlPath);
-      const content = formatCode(
-        `export default function(context) { with(context) { return <>${jsx}</> } }`,
-      );
-
-      // console.log({ wxmlTarget, content, target });
       ensureDirSync(path.resolve(target, '../'));
-      return fs.writeFileSync(wxmlTarget, content, { encoding: 'utf8' });
+      this.writePageWxmlWithTransform(pagePath, target);
+      this.writePageEntryWithWrap(pagePath, target);
     });
+  };
+
+  private writePageWxmlWithTransform = (pagePath: string, target: string) => {
+    const wxmlPath = pagePath + '.wxml';
+    const wxmlTarget = target + '.wxml.js';
+    const jsx = wxml2jsx(wxmlPath);
+    const content = formatCode(
+      `export default function(context) { with (context.data) { with(context) { return <>\n${jsx}\n</> } } }`,
+    );
+    return fs.writeFileSync(wxmlTarget, content, { encoding: 'utf-8' });
+  };
+
+  private writePageEntryWithWrap = (pagePath: string, target: string) => {
+    const entryPath = pagePath + '.js';
+    const entryTarget = target + '.js';
+    const wxssPath = target + '.wxss';
+    const content = fs.readFileSync(entryPath, { encoding: 'utf-8' });
+    const wrappedContent = formatCode(
+      `import "${wxssPath}"; export default function(context) { with (context) { \n${content}\n } }`,
+      // content,
+    );
+    return fs.writeFileSync(entryTarget, wrappedContent, { encoding: 'utf-8' });
   };
 
   public run = () => {

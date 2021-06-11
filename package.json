@@ -1,0 +1,61 @@
+{
+  "name": "mpx",
+  "version": "1.0.0",
+  "description": "Render mini-programming in browser",
+  "main": "index.js",
+  "scripts": {
+    "dev:example": "./node_modules/.bin/webpack serve --progress --config ./packages/example/webpack.config.js",
+    "build:example": "./node_modules/.bin/webpack --config ./packages/example/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aedron/mpx.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aedron/mpx/issues"
+  },
+  "homepage": "https://github.com/Aedron/mpx#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.12",
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@babel/plugin-proposal-export-namespace-from": "^7.12.1",
+    "@babel/plugin-transform-async-to-generator": "^7.8.3",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "app-module-path": "^2.2.0",
+    "autoprefixer": "^10.2.6",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "fs-extra": "^10.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss": "^7.0.36",
+    "postcss-loader": "^6.1.0",
+    "postcss-rpx2rem-loader": "^0.0.1",
+    "prettier": "^2.3.1",
+    "px2rpx-loader": "^0.1.10",
+    "ramda": "^0.27.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.34.1",
+    "sass-loader": "^8.0.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {
+    "@types/app-module-path": "^2.2.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/prettier": "^2.2.3",
+    "@types/ramda": "^0.27.40",
+    "lerna": "^4.0.0",
+    "typescript": "^4.3.2",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

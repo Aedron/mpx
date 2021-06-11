@@ -1,0 +1,26 @@
+{
+  "name": "mpx-wxml",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Aedron <534559077@qq.com>",
+  "homepage": "https://github.com/Aedron/mpx/tree/main/packages/builder#readme",
+  "license": "MIT",
+  "main": "./dist",
+  "module": "./dist",
+  "scripts": {
+    "dev": "../../node_modules/.bin/tsc -w",
+    "dist": "rm -r ./dist; ../../node_modules/.bin/tsc",
+    "publish": "npm publish --access public"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aedron/mpx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aedron/mpx/issues"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "allowJs": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "sourceMap": true,
+    "preserveSymlinks": true,
+    "inlineSources": true,
+    "lib": ["dom", "dom.iterable", "esnext", "es2015"]
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}

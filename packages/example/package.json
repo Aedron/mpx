@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "html-webpack-plugin": "^5.3.1"
+  },
+  "dependencies": {
+    "wxml-loader": "^0.3.0"
+  }
+}

@@ -30,7 +30,6 @@ function nodeVisitor(node: Node, parentNode: Node) {
   const element = node as ElementNode;
   element.tagName = transformTagName(element.tagName);
   element.attributes = transformAttributes(element.attributes);
-  console.log(element.attributes);
 }
 
 function transformTagName(tagName: string): string {
@@ -44,6 +43,24 @@ function transformTagName(tagName: string): string {
     .join('');
 }
 
+const attributeKeyMap: { [key: string]: string } = {
+  class: 'className',
+  'wx:if': 'x-if',
+  'wx:elif': 'x-elif',
+  'wx:else': 'x-else',
+  'wx:for': 'x-for',
+  'wx:for-item': 'x-for-item',
+  'wx:for-index': 'x-for-index',
+  'wx:key': 'key',
+};
+
 function transformAttributes(attributes: Attributes): Attributes {
+  Object.keys(attributes).forEach((key) => {
+    const newKey = attributeKeyMap[key];
+    if (newKey) {
+      attributes[newKey] = attributes[key];
+      delete attributes[key];
+    }
+  });
   return attributes;
 }

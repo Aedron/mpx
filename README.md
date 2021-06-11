@@ -1,2 +1,2 @@
 # MPX
-Render mini-programming in browser
+Render mini-program in browser

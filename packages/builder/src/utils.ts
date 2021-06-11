@@ -18,5 +18,12 @@ export function isCodeComment(line: string): boolean {
 }
 
 export function formatCode(code: string): string {
-  return prettier.format(code.replace(`"use strict";\n`, ''), { semi: false, parser: 'babel' });
+  try {
+    return prettier.format(code.replace(`"use strict";\n`, ''), {
+      semi: false,
+      parser: 'babel',
+    });
+  } catch (e) {
+    return code;
+  }
 }

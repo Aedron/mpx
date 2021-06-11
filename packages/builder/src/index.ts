@@ -57,7 +57,7 @@ export class Builder {
         `export default function(context) { with(context) { return <>${jsx}</> } }`,
       );
 
-      console.log({ wxmlTarget, content, target });
+      // console.log({ wxmlTarget, content, target });
       ensureDirSync(path.resolve(target, '../'));
       return fs.writeFileSync(wxmlTarget, content, { encoding: 'utf8' });
     });

@@ -38,6 +38,9 @@ function transformAttributeName(name: string): string {
 
 const serializers: Partial<Serializers> = {
   comment: () => '',
+  text: ({ textContent }) => {
+    return textContent.replace(/{{/g, '{').replace(/}}/g, '}');
+  },
   elementTagName: (tagName: string) => {
     return tagName
       .split('-')

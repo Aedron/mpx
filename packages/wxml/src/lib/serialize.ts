@@ -33,19 +33,15 @@ const serializeByType: {
       attrsString = ' ' + attrsString;
     }
 
-    if (node.selfClosing) {
+    if (node.selfClosing || !node.childNodes.length) {
       return `<${tagName}${attrsString} />`;
     }
 
-    if (node.childNodes.length) {
-      const childNodesString = node.childNodes
-        .map((i) => serialize(i, serializers))
-        .join('');
+    const childNodesString = node.childNodes
+      .map((i) => serialize(i, serializers))
+      .join('');
 
-      return `<${tagName || ''}${attrsString}>${childNodesString}</${tagName}>`;
-    }
-
-    return `<${tagName}${attrsString}></${tagName}>`;
+    return `<${tagName || ''}${attrsString}>${childNodesString}</${tagName}>`;
   },
   // [NODE_TYPES.CDATA_SECTION](node) {
   //   throw new Error('Implement');
@@ -54,6 +50,7 @@ const serializeByType: {
 
 const defaultSerializes: Serializers = {
   text: (node: TextNode) => {
+    console.log({ textContent: node.textContent });
     return node.textContent;
   },
   comment: (node: CommentNode) => {
